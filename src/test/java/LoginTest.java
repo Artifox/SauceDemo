@@ -19,11 +19,9 @@ public class LoginTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get(URL);
-        driver.findElement(By.id("user-name")).sendKeys(VALID_NAME);
-        driver.findElement(By.id("password")).sendKeys(VALID_PASSWORD);
-        driver.findElement(By.id("login-button")).click();
+        login(driver, VALID_NAME, VALID_PASSWORD);
         String result = driver.findElement(By.className("product_label")).getText();
-        Assert.assertEquals(result, "Products");
+        Assert.assertEquals(result, "Products", "Login failed");
         driver.quit();
     }
 
@@ -34,11 +32,35 @@ public class LoginTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get(URL);
-        driver.findElement(By.id("user-name")).sendKeys("John");
-        driver.findElement(By.id("password")).sendKeys("1234567890");
-        driver.findElement(By.id("login-button")).click();
+        login(driver, "John", "1234567890");
         String result = driver.findElement(By.cssSelector("h3[data-test]")).getText();
-        Assert.assertEquals(result, "Epic sadface: Username and password do not match any user in this service");
+        Assert.assertEquals(result, "Epic sadface: Username and password do not match any user in this service", "There is no warning message");
         driver.quit();
+    }
+
+    @Test
+    public static void addGoodsToBasket() {
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+        driver.get(URL);
+        login(driver, VALID_NAME, VALID_PASSWORD);
+        driver.findElement(By.xpath("//*[text()='Sauce Labs Backpack']/ancestor::div[@class='inventory_item']//button")).click();
+        driver.findElement(By.xpath("//*[text()='Sauce Labs Bike Light']/ancestor::div[@class='inventory_item']//button")).click();
+        driver.findElement(By.cssSelector("[data-icon=shopping-cart]")).click();
+        int amountOfElementsInBasket = driver.findElements(By.cssSelector("[class='cart_item']")).size();
+        Assert.assertEquals(amountOfElementsInBasket, 2);
+        String result = driver.findElement(By.xpath("//div/child::a/child::div[text()='Sauce Labs Backpack']")).getText();
+        Assert.assertEquals(result, "Sauce Labs Backpack");
+        result = driver.findElement(By.xpath("//div/child::a/child::div[text()='Sauce Labs Bike Light']")).getText();
+        Assert.assertEquals(result, "Sauce Labs Bike Light");
+        driver.quit();
+    }
+
+    private static void login(WebDriver driver, String validName, String validPassword) {
+        driver.findElement(By.id("user-name")).sendKeys(validName);
+        driver.findElement(By.id("password")).sendKeys(validPassword);
+        driver.findElement(By.id("login-button")).click();
     }
 }
