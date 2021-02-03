@@ -1,0 +1,19 @@
+.class | .page_wrapper
+.class1.class2 .btn_primary.btn_inventory
+.class1 .class2 | bm-item menu-item
+#id | shopping_cart_container
+* | *
+element | div
+element.class | div.bm-overlay
+element,element | div, a
+element element | div nav | ul li
+element>element | div > span
+element+element | div + div
+element1~element2 | div ~ img
+[attribute] | [style]
+[attribute=value] | [style="z-index: 1000;"]
+[attribute~=value] | [class~=social_twitter]
+[attribute|=value] |
+[attribute^=value] | a[href^="https"]
+
+//*[text()="Sauce Labs Backpack"]/ancestor::div[@class='inventory_item']//button
