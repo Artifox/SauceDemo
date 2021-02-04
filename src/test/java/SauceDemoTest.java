@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class LoginTest {
+public class SauceDemoTest {
 
     private static final String URL = "https://www.saucedemo.com/";
     private static final String VALID_NAME = "standard_user";
