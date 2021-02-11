@@ -1,4 +1,4 @@
-package Pages;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +10,7 @@ public class LoginPage extends BasePage{
     public static final By ERROR_MESSAGE = By.cssSelector("[data-test=error]");
 
 
-    public LoginPage(WebDriver driver) {
+    public  LoginPage(WebDriver driver) {
         super(driver);
     }
 

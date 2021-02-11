@@ -1,4 +1,4 @@
-package Tests;
+package tests;
 
 import org.testng.annotations.Test;
 
@@ -22,6 +22,22 @@ public class LoginTest extends BaseTest {
         assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Username is required",
                 "Error message is not correct");
+    }
+
+    @Test
+    public void emptyPassword() {
+        loginPage.open();
+        loginPage.login("standard_user", "");
+        assertEquals(loginPage.getErrorMessage(),
+                "Epic sadface: Password is required",
+                "Error message is not correct");
+    }
+
+    @Test
+    public void successfulLogin() {
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        assertEquals(productsPage.isOnTheProductPage(), true);
     }
 
 
