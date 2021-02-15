@@ -8,7 +8,16 @@ public class ProductsTest extends BaseTest {
 
     @Test
     public void productsShouldBeAvailableInCart() {
-        loginPage.open();
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack")
+                .addProductToCart("Sauce Labs Bolt T-Shirt");
+
+
+
+
+        /*loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addProductToCart("Sauce Labs Backpack");
         productsPage.addProductToCart("Sauce Labs Bolt T-Shirt");
@@ -16,7 +25,7 @@ public class ProductsTest extends BaseTest {
         boolean result = cartPage.findProductName("Sauce Labs Backpack");
         Assert.assertEquals(result, true);
         result = cartPage.findProductName("Sauce Labs Bolt T-Shirt");
-        Assert.assertEquals(result, true);
+        Assert.assertEquals(result, true);*/
     }
 
     @Test

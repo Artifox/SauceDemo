@@ -14,6 +14,12 @@ public class CartPage extends BasePage {
         super(driver);
     }
 
+    @Override
+    public CartPage open() {
+        driver.get("прямая ссылка на страницу");
+        return this;
+    }
+
     public boolean findProductName(String productName) {
         return driver.findElement(By.xpath(String.format(PRODUCT_NAME, productName))).isDisplayed();
     }
