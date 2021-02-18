@@ -1,5 +1,6 @@
 package tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -16,9 +17,16 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
+    public void successfulLogin() {
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        assertEquals(productsPage.isProductPageOpened(), true);
+    }
+
+    @Test
     public void emptyUsername() {
         loginPage.open();
-        loginPage.login("", "");
+        loginPage.login("", "secret_sauce");
         assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Username is required",
                 "Error message is not correct");
@@ -34,11 +42,22 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    public void successfulLogin() {
+    public void emptyUsernameAndPassword() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        assertEquals(productsPage.isOnTheProductPage(), true);
+        loginPage.login("", "");
+        assertEquals(loginPage.getErrorMessage(),
+                "Epic sadface: Username is required",
+                "Error message is not correct");
     }
 
-
+    @Test
+    public void removeErrorMessage() {
+        loginPage.open();
+        loginPage.login("", "");
+        assertEquals(loginPage.getErrorMessage(),
+                "Epic sadface: Username is required",
+                "Error message is not correct");
+        loginPage.pressErrorButton();
+        Assert.assertFalse(loginPage.isErrorMessageDisplayed());
+    }
 }

@@ -1,8 +1,6 @@
 package tests;
 
-import pages.CartPage;
-import pages.LoginPage;
-import pages.ProductsPage;
+import pages.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
@@ -15,6 +13,9 @@ public class BaseTest {
     LoginPage loginPage;
     ProductsPage productsPage;
     CartPage cartPage;
+    SideBarMenuPage sideBarMenuPage;
+    ProductDetailsPage productDetailsPage;
+    CheckoutPage checkoutPage;
 
     @BeforeMethod
     public void setup() {
@@ -25,11 +26,14 @@ public class BaseTest {
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
         cartPage = new CartPage(driver);
+        sideBarMenuPage = new SideBarMenuPage(driver);
+        productDetailsPage = new ProductDetailsPage(driver);
+        checkoutPage = new CheckoutPage(driver);
     }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-        if (driver != null){
+        if (driver != null) {
             driver.quit();
         }
 
