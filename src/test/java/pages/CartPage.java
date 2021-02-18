@@ -16,8 +16,9 @@ public class CartPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public CartPage open() {
         driver.get("https://www.saucedemo.com/cart.html");
+        return this;
     }
 
     public boolean findProductName(String productName) {
@@ -36,8 +37,14 @@ public class CartPage extends BasePage {
         driver.findElement(By.cssSelector(CONTINUE_SHOPPING_BUTTON)).click();
     }
 
-    public void clickCheckoutButton() {
+    public CheckoutPage clickCheckoutButton() {
         driver.findElement(By.cssSelector(CHECKOUT_BUTTON)).click();
+        return new CheckoutPage(driver);
+    }
+
+    public ProductDetailsPage openProductDetailsPage(String productName) {
+        driver.findElement(By.xpath(String.format(PRODUCT_NAME, productName))).click();
+        return new ProductDetailsPage(driver);
     }
 
     public boolean isCartPageOpened() {

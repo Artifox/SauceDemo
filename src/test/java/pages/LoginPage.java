@@ -19,14 +19,21 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public LoginPage open() {
         driver.get("https://www.saucedemo.com/index.html");
+        return this;
     }
 
-    public void login(String userName, String password) {
+    public ProductsPage login(String userName, String password) {
+        errorLogin(userName, password);
+        return new ProductsPage(driver);
+    }
+
+    public LoginPage errorLogin(String userName, String password) {
         driver.findElement(LOGIN_INPUT).sendKeys(userName);
         driver.findElement(PASSWORD_INPUT).sendKeys(password);
         driver.findElement(LOGIN_BUTTON).click();
+        return this;
     }
 
     /*public String getErrorMessage() {
@@ -51,7 +58,8 @@ public class LoginPage extends BasePage {
         return false;
     }
 
-    public void pressErrorButton() {
+    public LoginPage pressErrorButton() {
         driver.findElement(ERROR_BUTTON).click();
+        return this;
     }
 }

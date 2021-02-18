@@ -23,7 +23,8 @@ public class SideBarMenuPage extends BasePage {
         }
     }
 
-    public void closeSideBarMenu() {
+    public ProductsPage closeSideBarMenu() {
         driver.findElement(CLOSE_MENU_BUTTON).click();
+        return new ProductsPage(driver);
     }
 }

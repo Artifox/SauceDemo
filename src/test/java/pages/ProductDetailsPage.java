@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 public class ProductDetailsPage extends BasePage {
 
     public static final By BACK_BUTTON = By.cssSelector(".inventory_details_back_button");
-    public static final String PRODUCT_NAME = "//*[text()='%s']";
+    public static final By PRODUCT_NAME = By.cssSelector(".inventory_details_name");
 
     public ProductDetailsPage(WebDriver driver) {
         super(driver);
@@ -16,7 +16,7 @@ public class ProductDetailsPage extends BasePage {
         return driver.findElement(BACK_BUTTON).isDisplayed();
     }
 
-    public boolean findProductName(String productName) {
-        return driver.findElement(By.xpath(String.format(PRODUCT_NAME, productName))).isDisplayed();
+    public void findProductName(String productName) {
+        driver.findElement(PRODUCT_NAME);
     }
 }

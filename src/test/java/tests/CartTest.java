@@ -9,12 +9,13 @@ public class CartTest extends BaseTest {
 
     @Test
     public void removeProductFromCart() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        productsPage.addProductToCart("Sauce Labs Bolt T-Shirt");
-        productsPage.openCartPage();
-        cartPage.removeProductFromCart("Sauce Labs Backpack");
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack")
+                .addProductToCart("Sauce Labs Bolt T-Shirt")
+                .openCartPage()
+                .removeProductFromCart("Sauce Labs Backpack");
         Assert.assertTrue(cartPage.findProductName("Sauce Labs Bolt T-Shirt"));
         Assert.assertEquals(cartPage.getAmountOfProducts(), 1);
         cartPage.removeProductFromCart("Sauce Labs Bolt T-Shirt");
@@ -26,28 +27,28 @@ public class CartTest extends BaseTest {
 
     @Test
     public void productsPageShouldBeOpened() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        cartPage.open();
-        cartPage.clickContinueShoppingButton();
+        cartPage
+                .open()
+                .clickContinueShoppingButton();
         Assert.assertTrue(productsPage.isProductPageOpened());
     }
 
     @Test
     public void checkoutPageShouldBeOpened() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        cartPage.open();
-        cartPage.clickCheckoutButton();
+        cartPage
+                .open()
+                .clickCheckoutButton();
         Assert.assertTrue(checkoutPage.isCheckoutPageOpened());
     }
 
     @Test
     public void productDetailsPageShouldBeOpened() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        cartPage.open();
-        Assert.assertTrue(productDetailsPage.findProductName("Sauce Labs Backpack"));
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack")
+                .openCartPage()
+                .openProductDetailsPage("Sauce Labs Backpack");
+        Assert.assertTrue(productDetailsPage.isProductDetailsPageOpened(), "Product details page is not opened");
     }
 }

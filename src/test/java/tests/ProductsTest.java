@@ -8,75 +8,87 @@ public class ProductsTest extends BaseTest {
 
     @Test
     public void productsShouldBeAvailableInCart() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        productsPage.addProductToCart("Sauce Labs Bolt T-Shirt");
-        productsPage.openCartPage();
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack")
+                .addProductToCart("Sauce Labs Bolt T-Shirt")
+                .openCartPage();
         boolean result = cartPage.findProductName("Sauce Labs Backpack");
         Assert.assertEquals(result, true);
         result = cartPage.findProductName("Sauce Labs Bolt T-Shirt");
         Assert.assertEquals(result, true);
+        //loginPage.open();
+        //loginPage.login("standard_user", "secret_sauce");
+        //productsPage.addProductToCart("Sauce Labs Backpack");
+        //productsPage.addProductToCart("Sauce Labs Bolt T-Shirt");
+        //productsPage.openCartPage();
     }
 
     @Test
     public void addButtonShouldBePressed() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProductToCart("Sauce Labs Backpack");
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack");
         Assert.assertTrue(productsPage.isAddToCartButtonPressed("Sauce Labs Backpack"));
     }
 
     @Test
     public void removeButtonShouldBePressed() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        productsPage.removeProductFromCart("Sauce Labs Backpack");
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack")
+                .removeProductFromCart("Sauce Labs Backpack");
         Assert.assertTrue(productsPage.isRemoveButtonPressed("Sauce Labs Backpack"));
     }
 
     @Test
     public void cartPageShouldBeOpened() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.openCartPage();
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .openCartPage();
         Assert.assertTrue(cartPage.isCartPageOpened());
     }
 
     @Test
     public void sideBarMenuShouldBeOpened() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.isProductPageOpened();
-        productsPage.openSideBarMenu();
-        sideBarMenuPage.isSideBarMenuOpened();
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .openSideBarMenu()
+                .isSideBarMenuOpened();
     }
 
     @Test
     public void sideBarMenuShouldBeClosed() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.openSideBarMenu();
-        sideBarMenuPage.closeSideBarMenu();
-        //add assert
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .openSideBarMenu()
+                .closeSideBarMenu();
+        //add assert?
     }
 
     @Test
     public void numbersOfAddedProductsShouldBeDisplayedOnCartLogo() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        productsPage.addProductToCart("Sauce Labs Bolt T-Shirt");
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack")
+                .addProductToCart("Sauce Labs Bolt T-Shirt");
         Assert.assertEquals(productsPage.getNumbersOfProductsOnCartBadge(), "2", "Numbers of products shown on badge " +
                 "is not corresponded to added to cart");
     }
 
     @Test
     public void productDetailsPageShouldBeOpened() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.openProductDetailsPage("Sauce Labs Backpack");
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .openProductDetailsPage("Sauce Labs Backpack");
         Assert.assertTrue(productDetailsPage.isProductDetailsPageOpened());
     }
 }

@@ -9,8 +9,9 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void wrongPassword() {
-        loginPage.open();
-        loginPage.login("standard_user", "123");
+        loginPage
+                .open()
+                .errorLogin("standard_user", "123");
         assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Username and password do not match any user in this service",
                 "Error message is not correct");
@@ -18,15 +19,17 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void successfulLogin() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce");
         assertEquals(productsPage.isProductPageOpened(), true);
     }
 
     @Test
     public void emptyUsername() {
-        loginPage.open();
-        loginPage.login("", "secret_sauce");
+        loginPage
+                .open()
+                .errorLogin("", "secret_sauce");
         assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Username is required",
                 "Error message is not correct");
@@ -34,8 +37,9 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void emptyPassword() {
-        loginPage.open();
-        loginPage.login("standard_user", "");
+        loginPage
+                .open()
+                .errorLogin("standard_user", "");
         assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Password is required",
                 "Error message is not correct");
@@ -43,8 +47,9 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void emptyUsernameAndPassword() {
-        loginPage.open();
-        loginPage.login("", "");
+        loginPage
+                .open()
+                .errorLogin("", "");
         assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Username is required",
                 "Error message is not correct");
@@ -52,12 +57,10 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void removeErrorMessage() {
-        loginPage.open();
-        loginPage.login("", "");
-        assertEquals(loginPage.getErrorMessage(),
-                "Epic sadface: Username is required",
-                "Error message is not correct");
-        loginPage.pressErrorButton();
+        loginPage
+                .open()
+                .errorLogin("", "")
+                .pressErrorButton();
         Assert.assertFalse(loginPage.isErrorMessageDisplayed());
     }
 }

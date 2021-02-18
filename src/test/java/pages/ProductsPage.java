@@ -16,19 +16,21 @@ public class ProductsPage extends BasePage {
     }
 
     public void open() {
-
+        driver.get("https://www.saucedemo.com/inventory.html");
     }
 
-    public void addProductToCart(String productName) {
+    public ProductsPage addProductToCart(String productName) {
         driver.findElement(By.xpath(String.format(ADD_TO_CART, productName))).click();
+        return this;
     }
 
     public void openProductDetailsPage(String productName) {
         driver.findElement(By.xpath(String.format(PRODUCT_NAME, productName))).click();
     }
 
-    public void openCartPage() {
+    public CartPage openCartPage() {
         driver.findElement(By.id("shopping_cart_container")).click();
+        return new CartPage(driver);
     }
 
     public boolean isProductPageOpened() {
@@ -49,12 +51,14 @@ public class ProductsPage extends BasePage {
         return false;
     }
 
-    public void removeProductFromCart(String productName) {
+    public ProductsPage removeProductFromCart(String productName) {
         driver.findElement(By.xpath(String.format(REMOVE_FROM_CART, productName))).click();
+        return this;
     }
 
-    public void openSideBarMenu() {
+    public SideBarMenuPage openSideBarMenu() {
         driver.findElement(SIDE_BAR_MENU_BUTTON).click();
+        return new SideBarMenuPage(driver);
     }
 
     public String getNumbersOfProductsOnCartBadge() {

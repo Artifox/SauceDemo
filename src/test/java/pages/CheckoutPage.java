@@ -20,14 +20,16 @@ public class CheckoutPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public CheckoutPage open() {
         driver.get("https://www.saucedemo.com/checkout-step-one.html");
+        return this;
     }
 
-    public void fillingCheckoutForm(String firstName, String lastName, String zipCode){
+    public CheckoutPage fillingCheckoutForm(String firstName, String lastName, String zipCode){
         driver.findElement(FIRST_NAME).sendKeys(firstName);
         driver.findElement(LAST_NAME).sendKeys(lastName);
         driver.findElement(ZIP_CODE).sendKeys(zipCode);
+        return this;
     }
 
     public boolean isCheckoutPageOpened() {
@@ -38,8 +40,9 @@ public class CheckoutPage extends BasePage {
         return driver.findElement(CHECKOUT_SUMMARY_CONTAINER).isDisplayed();
     }
 
-    public void pressContinueButton() {
+    public CheckoutPage pressContinueButton() {
         driver.findElement(CONTINUE_BUTTON).click();
+        return this;
     }
 
     public String getErrorMessage() {
@@ -50,8 +53,9 @@ public class CheckoutPage extends BasePage {
         driver.findElement(CANCEL_BUTTON).click();
     }
 
-    public void clickFinishButton() {
+    public CheckoutPage clickFinishButton() {
         driver.findElement(FINISH_BUTTON).click();
+        return this;
     }
 
     public boolean isFinishCheckoutPageOpened(){
