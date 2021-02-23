@@ -1,12 +1,13 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class CheckoutPage extends BasePage {
 
     public static final By CHECKOUT_CONTAINER = By.cssSelector(".checkout_info_container");
-    public static final By CHECKOUT_SUMMARY_CONTAINER = By.cssSelector(".checkout_summary_container");
+    public static final By CHECKOUT_OVERVIEW_SUMMARY_CONTAINER = By.cssSelector(".checkout_summary_container");
     public static final By CHECKOUT_COMPLETE_CONTAINER = By.cssSelector(".checkout_complete_container");
     public static final By FIRST_NAME = By.id("first-name");
     public static final By LAST_NAME = By.id("last-name");
@@ -20,12 +21,23 @@ public class CheckoutPage extends BasePage {
         super(driver);
     }
 
+    @Override
+    public boolean isOpened() {
+        boolean isOpened;
+        try {
+            driver.findElement(CHECKOUT_CONTAINER);
+            return isOpened = true;
+        } catch (NoSuchElementException exception) {
+            return isOpened = false;
+        }
+    }
+
     public CheckoutPage open() {
         driver.get("https://www.saucedemo.com/checkout-step-one.html");
         return this;
     }
 
-    public CheckoutPage fillingCheckoutForm(String firstName, String lastName, String zipCode){
+    public CheckoutPage fillingCheckoutForm(String firstName, String lastName, String zipCode) {
         driver.findElement(FIRST_NAME).sendKeys(firstName);
         driver.findElement(LAST_NAME).sendKeys(lastName);
         driver.findElement(ZIP_CODE).sendKeys(zipCode);
@@ -36,8 +48,8 @@ public class CheckoutPage extends BasePage {
         return driver.findElement(CHECKOUT_CONTAINER).isDisplayed();
     }
 
-    public boolean isCheckoutSummaryPageOpened() {
-        return driver.findElement(CHECKOUT_SUMMARY_CONTAINER).isDisplayed();
+    public boolean isCheckoutOverviewPageOpened() {
+        return driver.findElement(CHECKOUT_OVERVIEW_SUMMARY_CONTAINER).isDisplayed();
     }
 
     public CheckoutPage pressContinueButton() {
@@ -49,8 +61,9 @@ public class CheckoutPage extends BasePage {
         return driver.findElement(ERROR_MESSAGE).getText();
     }
 
-    public void pressCancelButton() {
+    public CartPage pressCancelButton() {
         driver.findElement(CANCEL_BUTTON).click();
+        return new CartPage(driver);
     }
 
     public CheckoutPage clickFinishButton() {
@@ -58,7 +71,7 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
-    public boolean isFinishCheckoutPageOpened(){
+    public boolean isFinishCheckoutPageOpened() {
         return driver.findElement(CHECKOUT_COMPLETE_CONTAINER).isDisplayed();
     }
 }

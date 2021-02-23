@@ -27,10 +27,11 @@ public class CartTest extends BaseTest {
 
     @Test
     public void productsPageShouldBeOpened() {
-        cartPage
+        boolean isOpened = cartPage
                 .open()
-                .clickContinueShoppingButton();
-        Assert.assertTrue(productsPage.isProductPageOpened());
+                .clickContinueShoppingButton()
+                .isOpened();
+        Assert.assertTrue(isOpened);
     }
 
     @Test
@@ -43,12 +44,13 @@ public class CartTest extends BaseTest {
 
     @Test
     public void productDetailsPageShouldBeOpened() {
-        loginPage
+        boolean isOpened = loginPage
                 .open()
                 .login("standard_user", "secret_sauce")
                 .addProductToCart("Sauce Labs Backpack")
                 .openCartPage()
-                .openProductDetailsPage("Sauce Labs Backpack");
-        Assert.assertTrue(productDetailsPage.isProductDetailsPageOpened(), "Product details page is not opened");
+                .openProductDetailsPage("Sauce Labs Backpack")
+                .isOpened();
+        Assert.assertTrue(isOpened, "Product details page is not opened");
     }
 }

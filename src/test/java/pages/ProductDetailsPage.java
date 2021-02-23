@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class ProductDetailsPage extends BasePage {
@@ -12,8 +13,21 @@ public class ProductDetailsPage extends BasePage {
         super(driver);
     }
 
-    public boolean isProductDetailsPageOpened() {
-        return driver.findElement(BACK_BUTTON).isDisplayed();
+    @Override
+    public BasePage open() {
+        driver.get("https://www.saucedemo.com/inventory-item.html");
+        return this;
+    }
+
+    @Override
+    public boolean isOpened() {
+        boolean isOpened;
+        try {
+            driver.findElement(BACK_BUTTON);
+            return isOpened = true;
+        } catch (NoSuchElementException exception) {
+            return isOpened = false;
+        }
     }
 
     public void findProductName(String productName) {

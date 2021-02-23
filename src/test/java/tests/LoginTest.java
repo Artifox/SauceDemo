@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class LoginTest extends BaseTest {
 
@@ -22,7 +23,7 @@ public class LoginTest extends BaseTest {
         loginPage
                 .open()
                 .login("standard_user", "secret_sauce");
-        assertEquals(productsPage.isProductPageOpened(), true);
+        assertTrue(productsPage.isOpened());
     }
 
     @Test

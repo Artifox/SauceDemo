@@ -11,15 +11,16 @@ public class CheckoutTest extends BaseTest {
                 .open()
                 .fillingCheckoutForm("John", "Doe", "11111")
                 .pressContinueButton();
-        Assert.assertTrue(checkoutPage.isCheckoutSummaryPageOpened());
+        Assert.assertTrue(checkoutPage.isCheckoutOverviewPageOpened());
     }
 
     @Test
     public void cartPageShouldBeOpened() {
-        checkoutPage
+        boolean isOpened = checkoutPage
                 .open()
-                .pressCancelButton();
-        Assert.assertTrue(cartPage.isCartPageOpened());
+                .pressCancelButton()
+                .isOpened();
+        Assert.assertTrue(isOpened);
     }
 
     @Test

@@ -18,11 +18,6 @@ public class ProductsTest extends BaseTest {
         Assert.assertEquals(result, true);
         result = cartPage.findProductName("Sauce Labs Bolt T-Shirt");
         Assert.assertEquals(result, true);
-        //loginPage.open();
-        //loginPage.login("standard_user", "secret_sauce");
-        //productsPage.addProductToCart("Sauce Labs Backpack");
-        //productsPage.addProductToCart("Sauce Labs Bolt T-Shirt");
-        //productsPage.openCartPage();
     }
 
     @Test
@@ -46,20 +41,22 @@ public class ProductsTest extends BaseTest {
 
     @Test
     public void cartPageShouldBeOpened() {
-        loginPage
+        boolean isOpened = loginPage
                 .open()
                 .login("standard_user", "secret_sauce")
-                .openCartPage();
-        Assert.assertTrue(cartPage.isCartPageOpened());
+                .openCartPage()
+                .isOpened();
+        Assert.assertTrue(isOpened);
     }
 
     @Test
     public void sideBarMenuShouldBeOpened() {
-        loginPage
+        boolean isOpened = loginPage
                 .open()
                 .login("standard_user", "secret_sauce")
                 .openSideBarMenu()
-                .isSideBarMenuOpened();
+                .isOpened();
+        Assert.assertTrue(isOpened);
     }
 
     @Test
@@ -85,10 +82,11 @@ public class ProductsTest extends BaseTest {
 
     @Test
     public void productDetailsPageShouldBeOpened() {
-        loginPage
+        boolean isOpened = loginPage
                 .open()
                 .login("standard_user", "secret_sauce")
-                .openProductDetailsPage("Sauce Labs Backpack");
-        Assert.assertTrue(productDetailsPage.isProductDetailsPageOpened());
+                .openProductDetailsPage("Sauce Labs Backpack")
+                .isOpened();
+        Assert.assertTrue(isOpened);
     }
 }
