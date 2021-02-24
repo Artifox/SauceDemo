@@ -1,6 +1,7 @@
 package tests;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -8,13 +9,23 @@ import static org.testng.Assert.assertTrue;
 
 public class LoginTest extends BaseTest {
 
-    @Test
-    public void wrongPassword() {
+    @DataProvider(name = "Input data for Login")
+    public Object[][] inputDataForLogin() {
+        return new Object[][]{
+                {"standard_user", "123", "Epic sadface: Username and password do not match any user in this service"},
+                {"", "secret_sauce", "Epic sadface: Username is required"},
+                {"standard_user", "", "Epic sadface: Password is required"},
+                {"", "", "Epic sadface: Username is required"},
+        };
+    }
+
+    @Test(dataProvider = "Input data for Login")
+    public void unsuccessfulLogin(String username, String password, String errorMessage) {
         loginPage
                 .open()
-                .errorLogin("standard_user", "123");
+                .errorLogin(username, password);
         assertEquals(loginPage.getErrorMessage(),
-                "Epic sadface: Username and password do not match any user in this service",
+                errorMessage,
                 "Error message is not correct");
     }
 
@@ -24,36 +35,6 @@ public class LoginTest extends BaseTest {
                 .open()
                 .login("standard_user", "secret_sauce");
         assertTrue(productsPage.isOpened());
-    }
-
-    @Test
-    public void emptyUsername() {
-        loginPage
-                .open()
-                .errorLogin("", "secret_sauce");
-        assertEquals(loginPage.getErrorMessage(),
-                "Epic sadface: Username is required",
-                "Error message is not correct");
-    }
-
-    @Test
-    public void emptyPassword() {
-        loginPage
-                .open()
-                .errorLogin("standard_user", "");
-        assertEquals(loginPage.getErrorMessage(),
-                "Epic sadface: Password is required",
-                "Error message is not correct");
-    }
-
-    @Test
-    public void emptyUsernameAndPassword() {
-        loginPage
-                .open()
-                .errorLogin("", "");
-        assertEquals(loginPage.getErrorMessage(),
-                "Epic sadface: Username is required",
-                "Error message is not correct");
     }
 
     @Test

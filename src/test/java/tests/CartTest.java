@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class CartTest extends BaseTest {
 
-    @Test
+    @Test(description = "Product should be removed from cart")
     public void removeProductFromCart() {
         loginPage
                 .open()
@@ -25,7 +25,7 @@ public class CartTest extends BaseTest {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
 
-    @Test
+    @Test(description = "Products page should be opened")
     public void productsPageShouldBeOpened() {
         boolean isOpened = cartPage
                 .open()
@@ -34,7 +34,7 @@ public class CartTest extends BaseTest {
         Assert.assertTrue(isOpened);
     }
 
-    @Test
+    @Test(description = "Checkout page should be opened")
     public void checkoutPageShouldBeOpened() {
         cartPage
                 .open()
@@ -42,7 +42,7 @@ public class CartTest extends BaseTest {
         Assert.assertTrue(checkoutPage.isCheckoutPageOpened());
     }
 
-    @Test
+    @Test(description = "Product details page should be opened")
     public void productDetailsPageShouldBeOpened() {
         boolean isOpened = loginPage
                 .open()
