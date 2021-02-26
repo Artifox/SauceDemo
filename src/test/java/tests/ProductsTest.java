@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 public class ProductsTest extends BaseTest {
 
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void productsShouldBeAvailableInCart() {
         loginPage
                 .open()
@@ -20,7 +20,7 @@ public class ProductsTest extends BaseTest {
         Assert.assertEquals(result, true);
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void addButtonShouldBePressed() {
         loginPage
                 .open()
@@ -29,7 +29,7 @@ public class ProductsTest extends BaseTest {
         Assert.assertTrue(productsPage.isAddToCartButtonPressed("Sauce Labs Backpack"));
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void removeButtonShouldBePressed() {
         loginPage
                 .open()
@@ -39,7 +39,7 @@ public class ProductsTest extends BaseTest {
         Assert.assertTrue(productsPage.isRemoveButtonPressed("Sauce Labs Backpack"));
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void cartPageShouldBeOpened() {
         boolean isOpened = loginPage
                 .open()
@@ -49,7 +49,7 @@ public class ProductsTest extends BaseTest {
         Assert.assertTrue(isOpened);
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void sideBarMenuShouldBeOpened() {
         boolean isOpened = loginPage
                 .open()
@@ -59,7 +59,7 @@ public class ProductsTest extends BaseTest {
         Assert.assertTrue(isOpened);
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void sideBarMenuShouldBeClosed() {
         loginPage
                 .open()
@@ -69,7 +69,7 @@ public class ProductsTest extends BaseTest {
         //add assert?
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void numbersOfAddedProductsShouldBeDisplayedOnCartLogo() {
         loginPage
                 .open()
@@ -80,7 +80,7 @@ public class ProductsTest extends BaseTest {
                 "is not corresponded to added to cart");
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void productDetailsPageShouldBeOpened() {
         boolean isOpened = loginPage
                 .open()

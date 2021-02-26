@@ -19,7 +19,7 @@ public class LoginTest extends BaseTest {
         };
     }
 
-    @Test(dataProvider = "Input data for Login")
+    @Test(dataProvider = "Input data for Login", retryAnalyzer = Retry.class)
     public void unsuccessfulLogin(String username, String password, String errorMessage) {
         loginPage
                 .open()
@@ -29,7 +29,7 @@ public class LoginTest extends BaseTest {
                 "Error message is not correct");
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void successfulLogin() {
         loginPage
                 .open()
@@ -37,7 +37,7 @@ public class LoginTest extends BaseTest {
         assertTrue(productsPage.isOpened());
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void removeErrorMessage() {
         loginPage
                 .open()

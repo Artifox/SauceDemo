@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 public class CheckoutTest extends BaseTest {
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void successfulCheckout() {
         checkoutPage
                 .open()
@@ -14,7 +14,7 @@ public class CheckoutTest extends BaseTest {
         Assert.assertTrue(checkoutPage.isCheckoutOverviewPageOpened());
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void cartPageShouldBeOpened() {
         boolean isOpened = checkoutPage
                 .open()
@@ -23,7 +23,7 @@ public class CheckoutTest extends BaseTest {
         Assert.assertTrue(isOpened);
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void finishPageShouldBeOpened() {
         checkoutPage
                 .open()
@@ -33,7 +33,7 @@ public class CheckoutTest extends BaseTest {
         Assert.assertTrue(checkoutPage.isFinishCheckoutPageOpened());
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void emptyFirstName() {
         checkoutPage
                 .open()
@@ -42,7 +42,7 @@ public class CheckoutTest extends BaseTest {
         Assert.assertEquals(checkoutPage.getErrorMessage(), "Error: First Name is required", "Error message is not correct for empty First Name");
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void emptyLastName() {
         checkoutPage
                 .open()
@@ -51,7 +51,7 @@ public class CheckoutTest extends BaseTest {
         Assert.assertEquals(checkoutPage.getErrorMessage(), "Error: Last Name is required", "Error message is not correct for empty Last Name");
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void emptyZipCode() {
         checkoutPage
                 .open()
@@ -60,7 +60,7 @@ public class CheckoutTest extends BaseTest {
         Assert.assertEquals(checkoutPage.getErrorMessage(), "Error: Postal Code is required", "Error message is not correct for empty Zip Code");
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void allFieldsEmpty() {
         checkoutPage
                 .open()
