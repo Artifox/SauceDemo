@@ -12,3 +12,7 @@
 
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.81 s - in tests.LoginTest
 
+4) mvn -Dtest=LoginTest#removeErrorMessage+successfulLogin test
+
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.414 s - in tests.LoginTest
+
