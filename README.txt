@@ -1,23 +1,17 @@
->mvn versions:display-dependency-updates
-```sh
+1) mvn versions:display-dependency-updates
+
 [INFO] The following dependencies in Dependencies have newer versions:
 [INFO]   org.seleniumhq.selenium:selenium-java ....... 3.141.59 -> 4.0.0-beta-1
 [INFO]   org.testng:testng ..................................... 7.1.0 -> 7.4.0
-```
->mvn clean test -Dtest=LoginTest
 
-```sh
+2) mvn -Dtest=LoginTest test
+
 [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 22.88 s - in tests.LoginTest
-```
 
->mvn versions:display-dependency-updates
-```sh
-[INFO] The following dependencies in Dependencies have newer versions:
-[INFO]   org.seleniumhq.selenium:selenium-java ....... 3.141.59 -> 4.0.0-beta-1
-[INFO]   org.testng:testng ..................................... 7.1.0 -> 7.3.0
+3) mvn -Dtest=LoginTest#successfulLogin test
 
-```
-------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.81 s - in tests.LoginTest
+mvn clear -Dtest=LoginTest#
 Login page:
     1) Valid Login
     2) Empty Login
