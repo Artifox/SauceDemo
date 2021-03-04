@@ -1,5 +1,6 @@
 package tests;
 
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.Listeners;
 import pages.*;

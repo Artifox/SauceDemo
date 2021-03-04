@@ -31,7 +31,7 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage open() {
-        driver.get("https://www.saucedemo.com/index.html");
+        driver.get("https://www.saucedemo.com/");
         return this;
     }
 
