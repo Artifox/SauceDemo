@@ -22,7 +22,7 @@ public class BaseTest {
     ProductDetailsPage productDetailsPage;
     CheckoutPage checkoutPage;
 
-    @BeforeMethod
+    @BeforeMethod(description = "Opening browser")
     public void setup(ITestContext context) {
         driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         driver.manage().window().maximize();
@@ -36,7 +36,7 @@ public class BaseTest {
         checkoutPage = new CheckoutPage(driver);
     }
 
-    @AfterMethod(alwaysRun = true)
+    @AfterMethod(alwaysRun = true, description = "Closing browser")
     public void tearDown() {
         if (driver != null) {
             driver.quit();

@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Issue;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -19,7 +20,7 @@ public class LoginTest extends BaseTest {
         };
     }
 
-    @Test(dataProvider = "Input data for Login", retryAnalyzer = Retry.class)
+    @Test(description = "Error message should be shown after unsuccessful login", dataProvider = "Input data for Login", retryAnalyzer = Retry.class)
     public void unsuccessfulLogin(String username, String password, String errorMessage) {
         loginPage
                 .open()
@@ -29,7 +30,7 @@ public class LoginTest extends BaseTest {
                 "Error message is not correct");
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(description = "Main page should be opened after successful login",retryAnalyzer = Retry.class)
     public void successfulLogin() {
         loginPage
                 .open()
@@ -37,7 +38,8 @@ public class LoginTest extends BaseTest {
         assertTrue(productsPage.isOpened());
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(description = "Error message should be removed after pressing 'Cross' button", retryAnalyzer = Retry.class)
+    @Issue("potus")
     public void removeErrorMessage() {
         loginPage
                 .open()

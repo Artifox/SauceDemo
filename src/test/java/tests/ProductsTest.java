@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 public class ProductsTest extends BaseTest {
 
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(retryAnalyzer = Retry.class, description = "Products should be available in cart")
     public void productsShouldBeAvailableInCart() {
         loginPage
                 .open()
@@ -20,7 +20,7 @@ public class ProductsTest extends BaseTest {
         Assert.assertEquals(result, true);
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(retryAnalyzer = Retry.class, description = "Add button should be pressed")
     public void addButtonShouldBePressed() {
         loginPage
                 .open()
@@ -29,7 +29,7 @@ public class ProductsTest extends BaseTest {
         Assert.assertTrue(productsPage.isAddToCartButtonPressed("Sauce Labs Backpack"));
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(retryAnalyzer = Retry.class, description = "Remove button should be pressed")
     public void removeButtonShouldBePressed() {
         loginPage
                 .open()
@@ -39,7 +39,7 @@ public class ProductsTest extends BaseTest {
         Assert.assertTrue(productsPage.isRemoveButtonPressed("Sauce Labs Backpack"));
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(retryAnalyzer = Retry.class, description = "Cart page should be opened")
     public void cartPageShouldBeOpened() {
         boolean isOpened = loginPage
                 .open()
@@ -49,7 +49,7 @@ public class ProductsTest extends BaseTest {
         Assert.assertTrue(isOpened);
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(retryAnalyzer = Retry.class, description = "Side bar menu should be opened")
     public void sideBarMenuShouldBeOpened() {
         boolean isOpened = loginPage
                 .open()
@@ -59,7 +59,7 @@ public class ProductsTest extends BaseTest {
         Assert.assertTrue(isOpened);
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(retryAnalyzer = Retry.class, description = "Side bar menu should be closed")
     public void sideBarMenuShouldBeClosed() {
         loginPage
                 .open()
@@ -69,7 +69,7 @@ public class ProductsTest extends BaseTest {
         //add assert?
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(retryAnalyzer = Retry.class, description = "Numbers of added products should be displayed on cart logo")
     public void numbersOfAddedProductsShouldBeDisplayedOnCartLogo() {
         loginPage
                 .open()
@@ -80,7 +80,7 @@ public class ProductsTest extends BaseTest {
                 "is not corresponded to added to cart");
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(retryAnalyzer = Retry.class, description = "Product details page should be opened")
     public void productDetailsPageShouldBeOpened() {
         boolean isOpened = loginPage
                 .open()
