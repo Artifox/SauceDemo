@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class CartPage extends BasePage {
@@ -16,8 +17,20 @@ public class CartPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    @Override
+    public boolean isOpened() {
+        boolean isOpened;
+        try {
+            driver.findElement(YOU_CART_LABEL);
+            return isOpened = true;
+        } catch (NoSuchElementException exception) {
+            return isOpened = false;
+        }
+    }
+
+    public CartPage open() {
         driver.get("https://www.saucedemo.com/cart.html");
+        return this;
     }
 
     public boolean findProductName(String productName) {
@@ -32,16 +45,18 @@ public class CartPage extends BasePage {
         return driver.findElements(CART_ITEM).size();
     }
 
-    public void clickContinueShoppingButton() {
+    public ProductsPage clickContinueShoppingButton() {
         driver.findElement(By.cssSelector(CONTINUE_SHOPPING_BUTTON)).click();
+        return new ProductsPage(driver);
     }
 
-    public void clickCheckoutButton() {
+    public CheckoutPage clickCheckoutButton() {
         driver.findElement(By.cssSelector(CHECKOUT_BUTTON)).click();
+        return new CheckoutPage(driver);
     }
 
-    public boolean isCartPageOpened() {
-        return driver.findElement(YOU_CART_LABEL).isDisplayed();
+    public ProductDetailsPage openProductDetailsPage(String productName) {
+        driver.findElement(By.xpath(String.format(PRODUCT_NAME, productName))).click();
+        return new ProductDetailsPage(driver);
     }
-
 }

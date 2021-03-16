@@ -3,11 +3,11 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 
 import java.util.concurrent.TimeUnit;
 
 public class LoginPage extends BasePage {
+
     public static final By LOGIN_INPUT = By.id("user-name");
     public static final By PASSWORD_INPUT = By.id("password");
     public static final By LOGIN_BUTTON = By.id("login-button");
@@ -19,23 +19,34 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
-        driver.get("https://www.saucedemo.com/index.html");
+    @Override
+    public boolean isOpened() {
+        boolean isOpened;
+        try {
+            driver.findElement(LOGIN_BUTTON);
+            return isOpened = true;
+        } catch (NoSuchElementException exception) {
+            return isOpened = false;
+        }
     }
 
-    public void login(String userName, String password) {
+    public LoginPage open() {
+        driver.get("https://www.saucedemo.com/");
+        return this;
+    }
+
+    public ProductsPage login(String userName, String password) {
+        errorLogin(userName, password);
+        return new ProductsPage(driver);
+    }
+
+    public LoginPage errorLogin(String userName, String password) {
         driver.findElement(LOGIN_INPUT).sendKeys(userName);
         driver.findElement(PASSWORD_INPUT).sendKeys(password);
         driver.findElement(LOGIN_BUTTON).click();
+        return this;
     }
 
-    /*public String getErrorMessage() {
-        try{
-            return driver.findElement(ERROR_MESSAGE).getText();
-        }catch (NoSuchElementException exception){
-            return "Error message is not found";
-        }
-    }*/
 
     public String getErrorMessage() {
         return driver.findElement(ERROR_MESSAGE).getText();
@@ -51,7 +62,8 @@ public class LoginPage extends BasePage {
         return false;
     }
 
-    public void pressErrorButton() {
+    public LoginPage pressErrorButton() {
         driver.findElement(ERROR_BUTTON).click();
+        return this;
     }
 }

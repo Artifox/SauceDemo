@@ -7,14 +7,15 @@ import java.util.concurrent.TimeUnit;
 
 public class CartTest extends BaseTest {
 
-    @Test
+    @Test(description = "Product should be removed from cart", retryAnalyzer = Retry.class)
     public void removeProductFromCart() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        productsPage.addProductToCart("Sauce Labs Bolt T-Shirt");
-        productsPage.openCartPage();
-        cartPage.removeProductFromCart("Sauce Labs Backpack");
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack")
+                .addProductToCart("Sauce Labs Bolt T-Shirt")
+                .openCartPage()
+                .removeProductFromCart("Sauce Labs Backpack");
         Assert.assertTrue(cartPage.findProductName("Sauce Labs Bolt T-Shirt"));
         Assert.assertEquals(cartPage.getAmountOfProducts(), 1);
         cartPage.removeProductFromCart("Sauce Labs Bolt T-Shirt");
@@ -24,30 +25,32 @@ public class CartTest extends BaseTest {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
 
-    @Test
+    @Test(description = "Products page should be opened", retryAnalyzer = Retry.class)
     public void productsPageShouldBeOpened() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        cartPage.open();
-        cartPage.clickContinueShoppingButton();
-        Assert.assertTrue(productsPage.isProductPageOpened());
+        boolean isOpened = cartPage
+                .open()
+                .clickContinueShoppingButton()
+                .isOpened();
+        Assert.assertTrue(isOpened);
     }
 
-    @Test
+    @Test(description = "Checkout page should be opened", retryAnalyzer = Retry.class)
     public void checkoutPageShouldBeOpened() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        cartPage.open();
-        cartPage.clickCheckoutButton();
+        cartPage
+                .open()
+                .clickCheckoutButton();
         Assert.assertTrue(checkoutPage.isCheckoutPageOpened());
     }
 
-    @Test
+    @Test(description = "Product details page should be opened", retryAnalyzer = Retry.class)
     public void productDetailsPageShouldBeOpened() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        cartPage.open();
-        Assert.assertTrue(productDetailsPage.findProductName("Sauce Labs Backpack"));
+        boolean isOpened = loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack")
+                .openCartPage()
+                .openProductDetailsPage("Sauce Labs Backpack")
+                .isOpened();
+        Assert.assertTrue(isOpened, "Product details page is not opened");
     }
 }

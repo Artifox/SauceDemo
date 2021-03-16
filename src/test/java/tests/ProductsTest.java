@@ -6,77 +6,87 @@ import org.testng.annotations.Test;
 public class ProductsTest extends BaseTest {
 
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Products should be available in cart")
     public void productsShouldBeAvailableInCart() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        productsPage.addProductToCart("Sauce Labs Bolt T-Shirt");
-        productsPage.openCartPage();
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack")
+                .addProductToCart("Sauce Labs Bolt T-Shirt")
+                .openCartPage();
         boolean result = cartPage.findProductName("Sauce Labs Backpack");
         Assert.assertEquals(result, true);
         result = cartPage.findProductName("Sauce Labs Bolt T-Shirt");
         Assert.assertEquals(result, true);
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Add button should be pressed")
     public void addButtonShouldBePressed() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProductToCart("Sauce Labs Backpack");
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack");
         Assert.assertTrue(productsPage.isAddToCartButtonPressed("Sauce Labs Backpack"));
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Remove button should be pressed")
     public void removeButtonShouldBePressed() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        productsPage.removeProductFromCart("Sauce Labs Backpack");
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack")
+                .removeProductFromCart("Sauce Labs Backpack");
         Assert.assertTrue(productsPage.isRemoveButtonPressed("Sauce Labs Backpack"));
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Cart page should be opened")
     public void cartPageShouldBeOpened() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.openCartPage();
-        Assert.assertTrue(cartPage.isCartPageOpened());
+        boolean isOpened = loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .openCartPage()
+                .isOpened();
+        Assert.assertTrue(isOpened);
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Side bar menu should be opened")
     public void sideBarMenuShouldBeOpened() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.isProductPageOpened();
-        productsPage.openSideBarMenu();
-        sideBarMenuPage.isSideBarMenuOpened();
+        boolean isOpened = loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .openSideBarMenu()
+                .isOpened();
+        Assert.assertTrue(isOpened);
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Side bar menu should be closed")
     public void sideBarMenuShouldBeClosed() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.openSideBarMenu();
-        sideBarMenuPage.closeSideBarMenu();
-        //add assert
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .openSideBarMenu()
+                .closeSideBarMenu();
+        //add assert?
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Numbers of added products should be displayed on cart logo")
     public void numbersOfAddedProductsShouldBeDisplayedOnCartLogo() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        productsPage.addProductToCart("Sauce Labs Bolt T-Shirt");
+        loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .addProductToCart("Sauce Labs Backpack")
+                .addProductToCart("Sauce Labs Bolt T-Shirt");
         Assert.assertEquals(productsPage.getNumbersOfProductsOnCartBadge(), "2", "Numbers of products shown on badge " +
                 "is not corresponded to added to cart");
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Product details page should be opened")
     public void productDetailsPageShouldBeOpened() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.openProductDetailsPage("Sauce Labs Backpack");
-        Assert.assertTrue(productDetailsPage.isProductDetailsPageOpened());
+        boolean isOpened = loginPage
+                .open()
+                .login("standard_user", "secret_sauce")
+                .openProductDetailsPage("Sauce Labs Backpack")
+                .isOpened();
+        Assert.assertTrue(isOpened);
     }
 }

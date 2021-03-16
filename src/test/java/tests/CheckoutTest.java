@@ -5,59 +5,67 @@ import org.testng.annotations.Test;
 
 public class CheckoutTest extends BaseTest {
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "'Checkout overview' page is opened after filling 'Checkout' form")
     public void successfulCheckout() {
-        checkoutPage.open();
-        checkoutPage.fillingCheckoutForm("John", "Doe", "11111");
-        checkoutPage.pressContinueButton();
-        Assert.assertTrue(checkoutPage.isCheckoutSummaryPageOpened());
+        checkoutPage
+                .open()
+                .fillingCheckoutForm("John", "Doe", "11111")
+                .pressContinueButton();
+        Assert.assertTrue(checkoutPage.isCheckoutOverviewPageOpened());
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Cart page should be opened after pressing 'Cancel' button")
     public void cartPageShouldBeOpened() {
-        checkoutPage.open();
-        checkoutPage.pressCancelButton();
-        Assert.assertTrue(cartPage.isCartPageOpened());
+        boolean isOpened = checkoutPage
+                .open()
+                .pressCancelButton()
+                .isOpened();
+        Assert.assertTrue(isOpened);
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Finish page should be opened after filling form with correct values")
     public void finishPageShouldBeOpened() {
-        checkoutPage.open();
-        checkoutPage.fillingCheckoutForm("John", "Doe", "11111");
-        checkoutPage.pressContinueButton();
-        checkoutPage.clickFinishButton();
+        checkoutPage
+                .open()
+                .fillingCheckoutForm("John", "Doe", "11111")
+                .pressContinueButton()
+                .clickFinishButton();
         Assert.assertTrue(checkoutPage.isFinishCheckoutPageOpened());
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Error message if First name is empty")
     public void emptyFirstName() {
-        checkoutPage.open();
-        checkoutPage.fillingCheckoutForm("", "Doe", "11111");
-        checkoutPage.pressContinueButton();
+        checkoutPage
+                .open()
+                .fillingCheckoutForm("", "Doe", "11111")
+                .pressContinueButton();
         Assert.assertEquals(checkoutPage.getErrorMessage(), "Error: First Name is required", "Error message is not correct for empty First Name");
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Error message if Last name is empty")
     public void emptyLastName() {
-        checkoutPage.open();
-        checkoutPage.fillingCheckoutForm("John", "", "11111");
-        checkoutPage.pressContinueButton();
+        checkoutPage
+                .open()
+                .fillingCheckoutForm("John", "", "11111")
+                .pressContinueButton();
         Assert.assertEquals(checkoutPage.getErrorMessage(), "Error: Last Name is required", "Error message is not correct for empty Last Name");
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Error message if ZIP code is empty")
     public void emptyZipCode() {
-        checkoutPage.open();
-        checkoutPage.fillingCheckoutForm("John", "Doe", "");
-        checkoutPage.pressContinueButton();
+        checkoutPage
+                .open()
+                .fillingCheckoutForm("John", "Doe", "")
+                .pressContinueButton();
         Assert.assertEquals(checkoutPage.getErrorMessage(), "Error: Postal Code is required", "Error message is not correct for empty Zip Code");
     }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class, description = "Error message if all fields are empty")
     public void allFieldsEmpty() {
-        checkoutPage.open();
-        checkoutPage.fillingCheckoutForm("", "", "");
-        checkoutPage.pressContinueButton();
+        checkoutPage
+                .open()
+                .pressContinueButton()
+                .fillingCheckoutForm("", "", "");
         Assert.assertEquals(checkoutPage.getErrorMessage(), "Error: First Name is required", "Error message is not correct when all the fields are empty");
     }
 }

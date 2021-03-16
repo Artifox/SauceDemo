@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class ProductsPage extends BasePage {
@@ -10,29 +11,41 @@ public class ProductsPage extends BasePage {
     public static final String PRODUCT_NAME = "//*[text()='%s']";
     public static final By SIDE_BAR_MENU_BUTTON = By.xpath("//*[text()='Open Menu']");
     public static final By COUNTER_ON_CART_BADGE = By.cssSelector(".fa-layers-counter");
+    public static final By PRODUCT_LABEL = By.cssSelector(".product_label");
 
     public ProductsPage(WebDriver driver) {
         super(driver);
     }
 
-    public void open() {
-
+    public ProductsPage open() {
+        driver.get("https://www.saucedemo.com/inventory.html");
+        return this;
     }
 
-    public void addProductToCart(String productName) {
+    @Override
+    public boolean isOpened() {
+        boolean isOpened;
+        try {
+            driver.findElement(PRODUCT_LABEL);
+            return isOpened = true;
+        } catch (NoSuchElementException exception) {
+            return isOpened = false;
+        }
+    }
+
+    public ProductsPage addProductToCart(String productName) {
         driver.findElement(By.xpath(String.format(ADD_TO_CART, productName))).click();
+        return this;
     }
 
-    public void openProductDetailsPage(String productName) {
+    public ProductDetailsPage openProductDetailsPage(String productName) {
         driver.findElement(By.xpath(String.format(PRODUCT_NAME, productName))).click();
+        return new ProductDetailsPage(driver);
     }
 
-    public void openCartPage() {
+    public CartPage openCartPage() {
         driver.findElement(By.id("shopping_cart_container")).click();
-    }
-
-    public boolean isProductPageOpened() {
-        return driver.findElement(By.cssSelector(".product_label")).isDisplayed();
+        return new CartPage(driver);
     }
 
     public boolean isAddToCartButtonPressed(String productName) {
@@ -49,12 +62,14 @@ public class ProductsPage extends BasePage {
         return false;
     }
 
-    public void removeProductFromCart(String productName) {
+    public ProductsPage removeProductFromCart(String productName) {
         driver.findElement(By.xpath(String.format(REMOVE_FROM_CART, productName))).click();
+        return this;
     }
 
-    public void openSideBarMenu() {
+    public SideBarMenuPage openSideBarMenu() {
         driver.findElement(SIDE_BAR_MENU_BUTTON).click();
+        return new SideBarMenuPage(driver);
     }
 
     public String getNumbersOfProductsOnCartBadge() {
