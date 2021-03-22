@@ -40,6 +40,11 @@ public class LoginPage extends BasePage {
         return new ProductsPage(driver);
     }
 
+    public ProductsPage defaultLogin() {
+        errorLogin("standard_user", "secret_sauce");
+        return new ProductsPage(driver);
+    }
+
     public LoginPage errorLogin(String userName, String password) {
         driver.findElement(LOGIN_INPUT).sendKeys(userName);
         driver.findElement(PASSWORD_INPUT).sendKeys(password);

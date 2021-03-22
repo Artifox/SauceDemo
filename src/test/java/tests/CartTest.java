@@ -27,8 +27,10 @@ public class CartTest extends BaseTest {
 
     @Test(description = "Products page should be opened", retryAnalyzer = Retry.class)
     public void productsPageShouldBeOpened() {
-        boolean isOpened = cartPage
+        boolean isOpened = loginPage
                 .open()
+                .defaultLogin()
+                .openCartPage()
                 .clickContinueShoppingButton()
                 .isOpened();
         Assert.assertTrue(isOpened);
@@ -36,8 +38,10 @@ public class CartTest extends BaseTest {
 
     @Test(description = "Checkout page should be opened", retryAnalyzer = Retry.class)
     public void checkoutPageShouldBeOpened() {
-        cartPage
+        loginPage
                 .open()
+                .defaultLogin()
+                .openCartPage()
                 .clickCheckoutButton();
         Assert.assertTrue(checkoutPage.isCheckoutPageOpened());
     }

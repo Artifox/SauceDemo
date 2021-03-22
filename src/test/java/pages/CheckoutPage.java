@@ -66,7 +66,7 @@ public class CheckoutPage extends BasePage {
         return new CartPage(driver);
     }
 
-    public CheckoutPage clickFinishButton() {
+    public CheckoutPage pressFinishButton() {
         driver.findElement(FINISH_BUTTON).click();
         return this;
     }
