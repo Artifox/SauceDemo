@@ -66,7 +66,6 @@ public class ProductsTest extends BaseTest {
                 .login("standard_user", "secret_sauce")
                 .openSideBarMenu()
                 .closeSideBarMenu();
-        //add assert?
     }
 
     @Test(retryAnalyzer = Retry.class, description = "Numbers of added products should be displayed on cart logo")
