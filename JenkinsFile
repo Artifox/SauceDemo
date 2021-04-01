@@ -6,11 +6,17 @@ pipeline {
         maven "M3"
     }
 
+    parameters {
+        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', name: 'BRANCH', type: 'PT_BRANCH'
+        choice(name: 'BROWSER', choices: ['chrome', 'firefox', 'ie'], description: '')
+    }
+
     stages {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/Artifox/SauceDemo.git'
+                //git 'https://github.com/Artifox/SauceDemo.git'
+                git branch: "${params.BRANCH}", url: 'https://github.com/LenaHaidysh/SauceDemo.git'
 
                 // Run Maven on a Unix agent.
                 //sh "mvn -Dmaven.test.failure.ignore=true clean package"
